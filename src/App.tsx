@@ -12,10 +12,10 @@ export function App() {
         </div>
 
         <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
-          <div className='flex items-center gap-2'>
+          <div className='flex items-center gap-2 flex-1'>
             <MapPin className='size-5 text-zinc-400' />
 
-            <input type="text" placeholder="Para onde você vai?" className="flex-1 bg-transparent text-lg placeholder-zinc-400 outline-0" />
+            <input type="text" placeholder="Para onde você vai?" className="w-full bg-transparent text-lg placeholder-zinc-400 outline-0" />
           </div>
 
           <div className='flex items-center gap-2'>
