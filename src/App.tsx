@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import { MapPin, Calendar, ArrowRight, UserRoundPlus, Settings2, X, AtSign, Plus } from 'lucide-react'
 
@@ -8,6 +8,7 @@ import { Logo } from './assets/images/logo'
 
 export function App() {
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false);
+  const [emailsToInvite, setEmailsToInvite] = useState<string[]>([]);
 
   function openGuestsInput() {
     setIsGuestsInputOpen(true)
@@ -15,6 +16,26 @@ export function App() {
 
   function closeGuestsInput() {
     setIsGuestsInputOpen(false)
+  }
+
+  function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    const email = data.get('email')?.toString();
+
+    if(!email) return;
+
+    if(emailsToInvite.includes(email)) return
+    
+    setEmailsToInvite([...emailsToInvite, email]);
+
+    event.currentTarget.reset();
+  }
+
+  function removeEmailFromInvites(emailToRemove: string) {
+    const emailsFiltered = emailsToInvite.filter(email => email !== emailToRemove);
+    setEmailsToInvite(emailsFiltered);
   }
 
   return (
@@ -107,56 +128,41 @@ export function App() {
 
                       
                       <main className='flex flex-wrap gap-2'>
-                        <div className='py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2'>
-                          <span className='text-zinc-300'>wevisonramalho@gmail.com</span>
+                        {
+                          emailsToInvite.map(email => (
+                            <div key={email} className='py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2'>
+                              <span className='text-zinc-300'>{email}</span>
 
-                          <button type='button'>
-                            <X className='size-4 text-zinc-400' />
-                          </button>
-                        </div>
-
-                        <div className='py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2'>
-                          <span className='text-zinc-300'>wevisonramalho@gmail.com</span>
-
-                          <button type='button'>
-                            <X className='size-4 text-zinc-400' />
-                          </button>
-                        </div>
-
-                        <div className='py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2'>
-                          <span className='text-zinc-300'>wevisonramalho@gmail.com</span>
-
-                          <button type='button'>
-                            <X className='size-4 text-zinc-400' />
-                          </button>
-                        </div>
-
-                        <div className='py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2'>
-                          <span className='text-zinc-300'>wevisonramalho@gmail.com</span>
-
-                          <button type='button'>
-                            <X className='size-4 text-zinc-400' />
-                          </button>
-                        </div>
+                              <button type='button'>
+                                <X
+                                  onClick={() => removeEmailFromInvites(email)}
+                                  className='size-4 text-zinc-400'
+                                />
+                              </button>
+                            </div>
+                          ))
+                        }
                       </main>
 
                       <div className='w-full h-px bg-zinc-800'></div>
 
                       <footer>
-                        <form className='p-2.5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2'>
+                        <form onSubmit={addNewEmailToInvite} className='p-2.5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2'>
                           <div className='px-2 flex items-center flex-1 gap-2'>
                             <AtSign className='text-zinc-400 size-5' />
 
                             <input
-                              type="text"
+                              type="email"
+                              name="email"
                               placeholder="Digite o e-mail do convidado"
                               className="w-full bg-transparent text-lg placeholder-zinc-400 outline-0"
                             />
                           </div>
 
                           <button
+                            type="submit"
                             onClick={openGuestsInput}
-                            className='w-52 bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center justify-center gap-2 hover:bg-lime-400 transition-colors'
+                            className='bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center justify-center gap-2 hover:bg-lime-400 transition-colors'
                           >
                             Convidar
 
