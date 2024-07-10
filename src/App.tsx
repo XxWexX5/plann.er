@@ -124,8 +124,9 @@ export function App() {
                         <Dialog.Description className="text-sm text-zinc-400">
                           Os convidados irão receber e-mails para confirmar a participação na viagem.
                         </Dialog.Description>
-                      </header>
 
+                        {emailsToInvite.length === 0 && <p className='text-sm text-zinc-400 block pt-5'>Nenhum email cadastrado!</p>}
+                      </header>
                       
                       <main className='flex flex-wrap gap-2'>
                         {
@@ -133,9 +134,11 @@ export function App() {
                             <div key={email} className='py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2'>
                               <span className='text-zinc-300'>{email}</span>
 
-                              <button type='button'>
+                              <button 
+                                type='button' 
+                                onClick={() => removeEmailFromInvites(email)}
+                              >
                                 <X
-                                  onClick={() => removeEmailFromInvites(email)}
                                   className='size-4 text-zinc-400'
                                 />
                               </button>
