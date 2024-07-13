@@ -5,8 +5,11 @@ import { MapPin, Calendar, ArrowRight, UserRoundPlus, Settings2, X, AtSign, Plus
 import * as Dialog from '@radix-ui/react-dialog'
 
 import { Logo } from '../../assets/images/logo'
+import { useNavigate } from 'react-router-dom'
 
 export function CreateTripPage() {
+  const navigate = useNavigate()
+
   const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false)
   const [emailsToInvite, setEmailsToInvite] = useState<string[]>([])
 
@@ -36,6 +39,10 @@ export function CreateTripPage() {
   function removeEmailFromInvites(emailToRemove: string) {
     const emailsFiltered = emailsToInvite.filter((email) => email !== emailToRemove)
     setEmailsToInvite(emailsFiltered)
+  }
+
+  function createTrip() {
+    navigate('/trips/123')
   }
 
   return (
@@ -223,7 +230,7 @@ export function CreateTripPage() {
 
                         <button
                           type="submit"
-                          onClick={openGuestsInput}
+                          onClick={createTrip}
                           className="mt-4 w-full bg-lime-300 text-lime-950 rounded-lg px-5 h-11 font-medium flex items-center justify-center gap-2 hover:bg-lime-400 transition-colors">
                           Confirmar criação da viagem
                         </button>
