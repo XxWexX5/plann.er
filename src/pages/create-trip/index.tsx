@@ -64,40 +64,31 @@ export function CreateTripPage() {
           />
 
           {isGuestsInputOpen && (
-            <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
-              <Dialog.Root>
-                <Dialog.Trigger asChild>
-                  <button type="button" className="flex items-center gap-2 flex-1">
-                    <UserRoundPlus className="size-5 text-zinc-400" />
+            <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center justify-between shadow-shape gap-3">
+              <ModalInviteGuests
+                emailsToInvite={emailsToInvite}
+                addNewEmailToInvite={addNewEmailToInvite}
+                removeEmailFromInvites={removeEmailFromInvites}
+                openGuestsInput={openGuestsInput}>
+                <button type="button" className="flex items-center gap-2 flex-1">
+                  <UserRoundPlus className="size-5 text-zinc-400" />
 
-                    {emailsToInvite.length > 0 ? (
-                      <span className="text-zince-100 text-lg flex-1 text-left">
-                        {emailsToInvite.length} pessoa(s) convidada(s)
-                      </span>
-                    ) : (
-                      <span className="text-zince-400 text-lg flex-1 text-left">Quem estará na viagem?</span>
-                    )}
-                  </button>
-                </Dialog.Trigger>
+                  {emailsToInvite.length > 0 ? (
+                    <span className="text-zince-100 text-lg flex-1 text-left">
+                      {emailsToInvite.length} pessoa(s) convidada(s)
+                    </span>
+                  ) : (
+                    <span className="text-zince-400 text-lg flex-1 text-left">Quem estará na viagem?</span>
+                  )}
+                </button>
+              </ModalInviteGuests>
 
-                <ModalInviteGuests
-                  emailsToInvite={emailsToInvite}
-                  addNewEmailToInvite={addNewEmailToInvite}
-                  removeEmailFromInvites={removeEmailFromInvites}
-                  openGuestsInput={openGuestsInput}
-                />
-              </Dialog.Root>
-
-              <Dialog.Root>
-                <Dialog.Trigger asChild>
-                  <button className="bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center gap-2 hover:bg-lime-400 transition-colors">
-                    Confirmar viagem
-                    <ArrowRight className="size-5" />
-                  </button>
-                </Dialog.Trigger>
-
-                <ModalConfirmTrip createTrip={createTrip} />
-              </Dialog.Root>
+              <ModalConfirmTrip createTrip={createTrip}>
+                <button className="bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center gap-2 hover:bg-lime-400 transition-colors">
+                  Confirmar viagem
+                  <ArrowRight className="size-5" />
+                </button>
+              </ModalConfirmTrip>
             </div>
           )}
         </div>
