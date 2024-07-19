@@ -2,14 +2,13 @@ import { FormEvent, useState } from 'react'
 
 import { ArrowRight, UserRoundPlus } from 'lucide-react'
 
-import * as Dialog from '@radix-ui/react-dialog'
-
 import { useNavigate } from 'react-router-dom'
 import { ModalInviteGuests } from './components/ModalInviteGuests'
 import { ModalConfirmTrip } from './components/ModalConfirmTrip'
 import { DestinationDate } from './components/DestinationDate'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
+import { Button } from '../../components/Button'
 
 export function CreateTripPage() {
   const navigate = useNavigate()
@@ -70,24 +69,24 @@ export function CreateTripPage() {
                 addNewEmailToInvite={addNewEmailToInvite}
                 removeEmailFromInvites={removeEmailFromInvites}
                 openGuestsInput={openGuestsInput}>
-                <button type="button" className="flex items-center gap-2 flex-1">
+                <Button type="button" variant="secondary">
                   <UserRoundPlus className="size-5 text-zinc-400" />
 
                   {emailsToInvite.length > 0 ? (
-                    <span className="text-zince-100 text-lg flex-1 text-left">
+                    <span className="text-zinc-100 text-lg flex-1 text-left">
                       {emailsToInvite.length} pessoa(s) convidada(s)
                     </span>
                   ) : (
-                    <span className="text-zince-400 text-lg flex-1 text-left">Quem estará na viagem?</span>
+                    <span className="text-zinc-100 text-lg flex-1 text-left">Quem estará na viagem?</span>
                   )}
-                </button>
+                </Button>
               </ModalInviteGuests>
 
               <ModalConfirmTrip createTrip={createTrip}>
-                <button className="bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center gap-2 hover:bg-lime-400 transition-colors">
+                <Button>
                   Confirmar viagem
                   <ArrowRight className="size-5" />
-                </button>
+                </Button>
               </ModalConfirmTrip>
             </div>
           )}

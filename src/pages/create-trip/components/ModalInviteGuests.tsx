@@ -3,6 +3,7 @@ import { FormEvent, ReactNode } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 
 import { AtSign, Plus, X } from 'lucide-react'
+import { Button } from '../../../components/Button'
 
 interface ModalInviteGuestsProps {
   emailsToInvite: string[]
@@ -66,13 +67,10 @@ export function ModalInviteGuests({
                 />
               </div>
 
-              <button
-                type="submit"
-                onClick={openGuestsInput}
-                className="bg-lime-300 text-lime-950 rounded-lg px-5 py-2 font-medium flex items-center justify-center gap-2 hover:bg-lime-400 transition-colors">
+              <Button type="submit" onClick={openGuestsInput}>
                 Convidar
                 <Plus className="size-5" />
-              </button>
+              </Button>
             </form>
           </footer>
 
